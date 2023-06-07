@@ -1,0 +1,4 @@
+# @package paths
+
+main_path: /home/trabor/PycharmProjects/LON-fitness-landscape
+log_path: ${paths.main_path}/logs

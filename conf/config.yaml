@@ -1,0 +1,13 @@
+defaults:
+  - logging
+  - data_loading
+  - _self_
+
+hydra:
+  mode:
+    RUN
+#  sweeper:
+#    params:
+
+version:
+  0.1.0
