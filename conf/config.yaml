@@ -4,8 +4,8 @@ defaults:
 
 
 lon:
-  p: 0.2
-  max_iter: 100000
+  p: 0.3
+  max_iter: 10000
   patience: 10000
 
 
@@ -15,8 +15,8 @@ cities_graph:
   dims: 2
 
 experiment:
-  num_cities: 10
-  num_experiments: 100
+  num_cities: 50
+  num_experiments: 10
 
 hydra:
   mode:

@@ -1,5 +1,8 @@
 from typing import List
 import numpy as np
+import matplotlib.pyplot as plt
+from scipy.spatial import distance_matrix
+import seaborn as sns
 
 
 class CitiesGraph:
@@ -26,7 +29,7 @@ class CitiesGraph:
             raise Exception('metric: ', metric, ' not implemented')
 
     def calc_total_distance(self, cities):
-        cities = np.append(cities,cities[0])
+        cities = np.append(cities, cities[0])
         distance = 0
         city2 = -1
         for city in cities:
@@ -37,3 +40,32 @@ class CitiesGraph:
             else:
                 distance += self.calc_distance(city1, city2)
         return distance
+
+    def visualise_route(self, cities, show=True):
+        plt.figure()
+        plt.scatter(self.cords[0, 0], self.cords[0, 1], color='red')
+        plt.scatter(self.cords[1:, 0], self.cords[1:, 1])
+
+        cities = np.append(cities, cities[0])
+        city2 = -1
+        for city in cities:
+            city1 = city2
+            city2 = city
+            if city1 == -1:
+                continue
+            else:
+                plt.plot(self.cords[[city1, city2], 0], self.cords[[city1, city2], 1], 'b', linestyle="--")
+
+        if show:
+            plt.show()
+
+    def get_distance_matrix(self, show=True):
+        dm = distance_matrix(self.cords, self.cords)
+        if show:
+            plt.figure()
+            sns.heatmap(dm, cmap='hot', annot=True, fmt='.1f', cbar=True)
+            plt.show()
+        return dm
+
+    def visualise_fitness_landscape(self):
+        dm = self.get_distance_matrix(show=False)

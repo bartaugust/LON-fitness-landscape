@@ -2,3 +2,6 @@ hydra-core
 hydra-colorlog
 
 numpy
+matplotlib
+scipy
+seaborn

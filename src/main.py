@@ -10,10 +10,13 @@ from src.LON import LON
 @hydra.main(version_base='1.3', config_path='../conf', config_name='config')
 def main(cfg: DictConfig):
     cg = CitiesGraph(cfg, cfg.experiment.num_cities)
+    cg.get_distance_matrix()
     for i in range(cfg.experiment.num_experiments):
         lon = LON(cfg, cg)
         lon.find_best_solution()
         print(lon.best_solution_distance)
+        lon.visualise_best_solution()
+        lon.plot_solution_distances()
 
 
 if __name__ == '__main__':

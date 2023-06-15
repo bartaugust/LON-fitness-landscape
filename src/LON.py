@@ -1,4 +1,6 @@
 import numpy as np
+import matplotlib.pyplot as plt
+
 from src.CitiesGraph import CitiesGraph
 
 import logging
@@ -20,6 +22,8 @@ class LON:
         self.best_solution_time = 0
         self.iteration_no = 0
 
+        self.all_solutions = [self.solution.copy()]
+        self.all_solution_distances = [self.best_solution_distance]
     def generate_initial_solution(self, start=None):
         permutation = np.random.permutation(self.cities_graph.num_cities)
         if start:
@@ -27,17 +31,21 @@ class LON:
             permutation = np.roll(permutation, -start_idx)
         return permutation
 
-    def generate_new_solution(self, modification='swap_random'):
+    def generate_new_solution(self, modification='swap_random_two'):
         new_solution = self.solution.copy()
-        if modification == 'swap_random':
+        if modification == 'swap_random_two':
             indices = np.random.choice(new_solution.size - 1, 2, replace=False) + 1
             new_solution[indices[0]], new_solution[indices[1]] = new_solution[indices[1]], new_solution[indices[0]]
+        elif modification == '2-opt':
+            pass
         else:
             raise Exception('modification: ', modification, ' not found')
-        self.compare_solution(new_solution)
+        self.compare_solution(new_solution.copy())
 
     def compare_solution(self, new_solution):
         new_solution_distance = self.cities_graph.calc_total_distance(new_solution)
+        self.all_solutions.append(new_solution)
+        self.all_solution_distances.append(new_solution_distance)
         if new_solution_distance < self.solution_distance:
             self.solution = new_solution
             self.solution_distance = new_solution_distance
@@ -67,3 +75,10 @@ class LON:
             if self.best_solution_time == self.patience:
                 return True
         return False
+
+    def plot_solution_distances(self):
+        plt.figure()
+        plt.plot(self.all_solution_distances)
+        plt.show()
+    def visualise_best_solution(self):
+        self.cities_graph.visualise_route(self.best_solution)
