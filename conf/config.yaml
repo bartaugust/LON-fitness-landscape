@@ -8,8 +8,8 @@ lon:
   max_iter: 10000
   patience: 1000
 
-  num_nodes: 100
-  node_attempts: 10
+  num_nodes: 1000
+  node_attempts: 1000
 
   num_kicks: 5
   k: 2
@@ -22,7 +22,7 @@ cities_graph:
 
 experiment:
   instance:
-    5
+    10
   num_experiments: 1
 
 

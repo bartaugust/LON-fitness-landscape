@@ -21,6 +21,7 @@ def main(cfg: DictConfig):
     lon.sample_nodes()
     lon.sample_edges()
     lon.calc_metrics()
+    lon.save_metrics_to_file()
     print('a')
     # lon.find_best_solution()
     # print(lon.best_solution_distance)
