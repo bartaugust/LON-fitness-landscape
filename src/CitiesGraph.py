@@ -1,5 +1,6 @@
 from typing import List
 import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
 from scipy.spatial import distance_matrix
 import seaborn as sns
@@ -15,6 +16,10 @@ class CitiesGraph:
             self.generate_random_cords()
         elif isinstance(cords_or_num, np.ndarray):
             self.cords = cords_or_num
+            self.num_cities = len(cords_or_num)
+        elif isinstance(cords_or_num, pd.DataFrame):
+            self.cords = cords_or_num
+
             self.num_cities = len(cords_or_num)
         else:
             raise Exception("cords_or_num must be int or array")

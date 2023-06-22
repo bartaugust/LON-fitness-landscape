@@ -6,7 +6,13 @@ defaults:
 lon:
   p: 0.3
   max_iter: 10000
-  patience: 10000
+  patience: 1000
+
+  num_nodes: 100
+  node_attempts: 10
+
+  num_kicks: 5
+  k: 2
 
 
 cities_graph:
@@ -15,16 +21,19 @@ cities_graph:
   dims: 2
 
 experiment:
-  num_cities: 50
-  num_experiments: 10
+  instance:
+    5
+  num_experiments: 1
+
 
 hydra:
   mode:
-    RUN
+    MULTIRUN
   sweeper:
     params:
-      lon.p: 0.05, 0.1, 0.2
-      lon.patience: 100, 200, 500,1000
+#      lon.p: 0.05, 0.1, 0.2
+#      lon.patience: 100, 200, 500,1000
+      experiment.instance: berlin52.csv, st70.csv
 
 version:
   1.0.0

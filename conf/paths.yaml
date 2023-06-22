@@ -2,3 +2,4 @@
 
 main_path: /home/trabor/PycharmProjects/LON-fitness-landscape
 log_path: ${paths.main_path}/logs
+instance_path: ${paths.main_path}/instances/
